@@ -3,6 +3,7 @@ mixed weight week || id:
 
 cap program drop ranefplot
 program define ranefplot
+	preserve
 	tempname ra rse x ub lb
 	predict `ra', reffects
 	predict `rse', reses
