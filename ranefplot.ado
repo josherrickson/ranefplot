@@ -48,7 +48,17 @@ program define ranefplot
 		local color = "gs14"
 	}
 	
-	twoway (rcap `ub' `lb' `x' if `signif' == 0, lcolor("`color'")) (scatter `ra' `x' if `signif' == 0, mcolor("`color'")) ///
-				 (rcap `ub' `lb' `x' if `signif' == 1, lcolor("black")) (scatter `ra' `x' if `signif' == 1, mcolor("black")), ///
-		yline(0) legend(off) xtitle("") xlab("") ytitle("Random Effect")
+	twoway (rcap `ub' `lb' `x' if `signif' == 0, ///
+						lcolor("`color'")) ///
+				 (scatter `ra' `x' if `signif' == 0, ///
+						mcolor("`color'")) ///
+				 (rcap `ub' `lb' `x' if `signif' == 1, ///
+						lcolor("black")) ///
+				 (scatter `ra' `x' if `signif' == 1, ///
+						mcolor("black")), ///
+							yline(0) ///
+							legend(off) ///
+							xtitle("") ///
+							xlab("") ///
+							ytitle("Random Effect")
 end
