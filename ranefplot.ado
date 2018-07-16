@@ -1,6 +1,22 @@
 program define ranefplot
 	preserve
 	syntax [, relevel(integer 1)]
+	
+	**** Ensure `relevel` is appropriate
+	if `relevel' <= 0 {
+		display as error "{bf:relevel} must be greater than 0."
+		exit
+	}
+	if `relevel' > `=e(k_rs)-1' {
+		if `=e(k_rs)-1' == 1 {
+			display as error "{bf:relevel} option not accepted; only one random effect in model."
+		}
+		else {
+			display as error "{bf:relevel} must be between 1 and `=e(k_rs)-1', the number of random effects."
+		}
+		exit
+	}
+	
 	forvalues i = 1/`=e(k_rs)-1' {
 		tempname ra`i'
 		local ras `ras' `ra`i''
