@@ -1,6 +1,6 @@
 program define ranefplot
 	preserve
-	syntax [, relevel(integer 1)]
+	syntax [, relevel(integer 1) noCIHighlight]
 	
 	**** Ensure `relevel` is appropriate
 	if `relevel' <= 0 {
@@ -41,7 +41,14 @@ program define ranefplot
 	
 	gen `signif' = sign(`ub') == sign(`lb')
 
-	twoway (rcap `ub' `lb' `x' if `signif' == 0, lcolor("gs14")) (scatter `ra' `x' if `signif' == 0, mcolor("gs14")) ///
+	if "`cihighlight'" == "nocihighlight" {
+		local color = "black"
+	}
+	else {
+		local color = "gs14"
+	}
+	
+	twoway (rcap `ub' `lb' `x' if `signif' == 0, lcolor("`color'")) (scatter `ra' `x' if `signif' == 0, mcolor("`color'")) ///
 				 (rcap `ub' `lb' `x' if `signif' == 1, lcolor("black")) (scatter `ra' `x' if `signif' == 1, mcolor("black")), ///
 		yline(0) legend(off) xtitle("") xlab("") ytitle("Random Effect")
 end

@@ -23,6 +23,7 @@
 {synopthdr}
 {synoptline}
 {synopt :{opth relevel(integer)}}Chooses which level of random effects to predict (see below).{p_end}
+{synopt :{opt nocih:ighlight}}Suppresses highlighting which confidence intervals do not cross zero.{p_end}
 
 {marker description}{...}
 {title:Description}
