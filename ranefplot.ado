@@ -43,7 +43,20 @@ program define ranefplot
 	predict `rses', reses
 	gen `rse' = `rse`relevel''
 	
-	collapse (first) `ra' `rse', by(id)
+	local revars = e(ivars)
+	tokenize `revars'
+	local id = "``relevel''"
+	display "`id'"
+	if "`id'" == "_all" {
+		local revars = e(revars)
+		tokenize `revars'
+		local id = "``relevel''"
+		local id = regexr("`id'", "^[icbR]\.", "")
+	}
+		
+	
+	collapse (first) `ra' `rse', by(`id')
+	list `ra' `rse' in 1/5
 
 	sort `ra'
 	gen `x' = _n
